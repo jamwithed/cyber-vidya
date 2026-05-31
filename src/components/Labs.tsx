@@ -57,7 +57,7 @@ export function Labs({ openLabId, onOpenLab }: LabsProps) {
   }
 
   return (
-    <section id="labs" className="scroll-mt-24 py-20">
+    <section id="labs" className="scroll-mt-24 py-14 sm:py-20">
       <Confetti fireKey={confettiKey} />
 
       <div className="mx-auto max-w-7xl px-5">
@@ -161,7 +161,7 @@ function FilterChip({
   return (
     <button
       onClick={onClick}
-      className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+      className={`rounded-full px-4 py-2 text-xs font-medium transition sm:py-1.5 ${
         active
           ? 'bg-brand-gradient text-midnight'
           : 'border border-white/15 bg-white/5 text-white/70 hover:border-aqua/40'
@@ -191,18 +191,18 @@ function LabDetail({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm sm:p-8"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-2 backdrop-blur-sm sm:p-8"
       onClick={onClose}
     >
       <div
-        className="relative my-4 w-full max-w-3xl rounded-2xl border border-white/12 bg-midnight-panel shadow-card"
+        className="relative my-2 w-full max-w-3xl rounded-2xl border border-white/12 bg-midnight-panel shadow-card sm:my-4"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label={lab.title}
       >
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 border-b border-white/10 p-6">
+        <div className="flex items-start justify-between gap-3 border-b border-white/10 p-5 sm:p-6">
           <div>
             <div className="mb-2 flex flex-wrap items-center gap-2">
               <StageBadge stage={lab.stage} />
@@ -214,7 +214,7 @@ function LabDetail({
                 <span className="chip border border-aqua/40 bg-aqua/10 text-aqua">✔ Solved</span>
               )}
             </div>
-            <h3 className="text-2xl font-bold">{lab.title}</h3>
+            <h3 className="text-xl font-bold sm:text-2xl">{lab.title}</h3>
           </div>
           <button
             onClick={onClose}
@@ -228,7 +228,7 @@ function LabDetail({
         </div>
 
         {/* Body */}
-        <div className="space-y-6 p-6">
+        <div className="space-y-6 p-5 sm:p-6">
           <p className="text-white/75">{lab.description}</p>
 
           <div>

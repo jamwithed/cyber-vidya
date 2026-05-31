@@ -18,7 +18,7 @@ function CheckIcon() {
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pt-32 pb-20 sm:pt-40">
+    <section id="top" className="relative overflow-hidden pt-24 pb-16 sm:pt-40 sm:pb-20">
       {/* Decorative glow orbs */}
       <div className="pointer-events-none absolute -top-24 right-0 h-96 w-96 rounded-full bg-cerulean/20 blur-3xl" />
       <div className="pointer-events-none absolute top-40 -left-20 h-72 w-72 rounded-full bg-aqua/10 blur-3xl" />
@@ -56,20 +56,20 @@ export function Hero() {
             ))}
           </ul>
 
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-            <a href="#roadmap" className="btn-primary">
+          <div className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <a href="#roadmap" className="btn-primary w-full sm:w-auto">
               Explore Roadmap
             </a>
-            <a href="#labs" className="btn-ghost">
+            <a href="#labs" className="btn-ghost w-full sm:w-auto">
               Try Labs
             </a>
-            <a href="#/contact" className="btn-ghost">
+            <a href="#/contact" className="btn-ghost w-full sm:w-auto">
               Talk to an Expert
             </a>
           </div>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-3 sm:mt-16 sm:gap-4 sm:grid-cols-4">
           {stats.map((s) => (
             <div key={s.label} className="card px-4 py-5 text-center">
               <div className="font-display text-3xl font-bold brand-text-gradient">

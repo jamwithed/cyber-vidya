@@ -21,7 +21,7 @@ export function Estimator() {
   }, [track, level, weeklyHours])
 
   return (
-    <section id="estimator" className="scroll-mt-24 py-20">
+    <section id="estimator" className="scroll-mt-24 py-14 sm:py-20">
       <div className="mx-auto max-w-7xl px-5">
         <div className="mb-10 max-w-2xl">
           <span className="section-eyebrow">Plan It</span>

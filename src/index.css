@@ -9,10 +9,15 @@
 
   html {
     scroll-behavior: smooth;
+    /* Safety net against accidental horizontal scrolling on mobile */
+    overflow-x: hidden;
+    /* Avoid jarring tap flashes on touch devices */
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
     @apply bg-midnight text-white font-body antialiased;
+    overflow-x: hidden;
     /* Subtle diagonal light streaks — echoes the brand-guide background texture */
     background-image:
       linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 35%),
@@ -31,6 +36,16 @@
   /* Brand-styled focus ring for keyboard users */
   :focus-visible {
     @apply outline-none ring-2 ring-aqua/70 ring-offset-2 ring-offset-midnight;
+  }
+
+  /* Prevent iOS Safari from auto-zooming when a form field is focused
+     (any input < 16px triggers the zoom). Forces 16px on small screens. */
+  @media (max-width: 640px) {
+    input,
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
   }
 }
 

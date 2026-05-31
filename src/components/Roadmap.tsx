@@ -61,7 +61,7 @@ export function Roadmap() {
   const current = stages.find((s) => s.id === active)!
 
   return (
-    <section id="roadmap" className="scroll-mt-24 py-20">
+    <section id="roadmap" className="scroll-mt-24 py-14 sm:py-20">
       <div className="mx-auto max-w-7xl px-5">
         <div className="mb-12 max-w-2xl">
           <span className="section-eyebrow">The Path</span>

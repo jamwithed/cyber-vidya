@@ -22,7 +22,7 @@ function Stars({ rating }: { rating: number }) {
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="scroll-mt-24 py-20">
+    <section id="testimonials" className="scroll-mt-24 py-14 sm:py-20">
       <div className="mx-auto max-w-7xl px-5">
         <div className="mb-12 max-w-2xl">
           <span className="section-eyebrow">Success Stories</span>

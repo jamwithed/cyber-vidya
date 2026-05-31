@@ -13,7 +13,7 @@ export function TrackComparison({ onOpenLab }: TrackComparisonProps) {
   const [expanded, setExpanded] = useState<TrackId | null>('soc')
 
   return (
-    <section id="tracks" className="scroll-mt-24 py-20">
+    <section id="tracks" className="scroll-mt-24 py-14 sm:py-20">
       <div className="mx-auto max-w-7xl px-5">
         <div className="mb-12 max-w-2xl">
           <span className="section-eyebrow">Choose Your Lane</span>
