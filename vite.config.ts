@@ -2,10 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-// `base: './'` makes all asset URLs relative, so the build works whether it is
-// served from a domain root (Cloudflare Pages / custom domain) or a project
-// sub-path (GitHub Pages, e.g. /cyber-vidya/). Hash routing is unaffected.
+// Cloudflare (served at the domain root) is the canonical host, so assets use an
+// absolute base. This makes the SPA fallback render correctly for ANY path,
+// including unknown nested paths served index.html by Workers static assets.
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [react()],
 })
