@@ -2,6 +2,8 @@
  * Single source of truth for company info, contact details and marketing copy.
  * Sourced from cybervidya.co.in — edit here to update About / Contact / Footer.
  */
+import rohitPhoto from '../assets/rohit.jpeg'
+import virendraPhoto from '../assets/virendra.jpeg'
 
 export const site = {
   name: 'Cyber Vidya',
@@ -92,6 +94,22 @@ export const site = {
     'Enterprise security solutions',
     'Incident response planning',
     'Staff security training workshops',
+  ],
+
+  /** Our Experts — team members (from cybervidya.co.in). Edit roles as needed. */
+  team: [
+    {
+      name: 'Rohit Date',
+      role: 'Cybersecurity Expert & Mentor',
+      photo: rohitPhoto,
+      linkedin: 'https://www.linkedin.com/in/rohit-date/',
+    },
+    {
+      name: 'Virendra Singh Rathore',
+      role: 'Cybersecurity Expert & Mentor',
+      photo: virendraPhoto,
+      linkedin: 'https://www.linkedin.com/in/virendrasr/',
+    },
   ],
 
   /** Trust / proof points. */

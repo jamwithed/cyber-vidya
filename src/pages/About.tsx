@@ -106,6 +106,49 @@ export function About() {
         </div>
       </section>
 
+      {/* Our Experts */}
+      <section className="py-12">
+        <div className="mx-auto max-w-7xl px-5">
+          <div className="mb-10 max-w-2xl">
+            <span className="section-eyebrow">Our Experts</span>
+            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Meet the team</h2>
+            <p className="mt-3 text-white/65">
+              Learn from industry-certified professionals who bring real offensive and
+              defensive experience into every session. Connect with them on LinkedIn.
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:max-w-3xl">
+            {site.team.map((m) => (
+              <a
+                key={m.name}
+                href={m.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card group flex items-center gap-5 p-5 transition hover:-translate-y-1 hover:border-aqua/40 hover:shadow-glow-sm"
+              >
+                <img
+                  src={m.photo}
+                  alt={m.name}
+                  loading="lazy"
+                  className="h-28 w-24 shrink-0 rounded-xl object-cover ring-1 ring-white/10"
+                />
+                <div>
+                  <h3 className="font-display text-lg font-semibold">{m.name}</h3>
+                  <p className="mt-1 text-sm text-white/60">{m.role}</p>
+                  <span className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-aqua">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+                    </svg>
+                    View LinkedIn
+                    <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Trust strip */}
       <section className="py-12">
         <div className="mx-auto max-w-7xl px-5">
