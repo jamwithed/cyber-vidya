@@ -32,3 +32,6 @@ Thumbs.db
 vite.config.js
 vite.config.d.ts
 *.tsbuildinfo
+
+# Logo extraction scratch
+_logo_extract/
