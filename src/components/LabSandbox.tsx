@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Sandbox } from '../types'
+import { usePhonePortrait } from '../hooks/useMediaQuery'
 
 interface LabSandboxProps {
   sandbox: Sandbox
@@ -29,6 +30,15 @@ export function LabSandbox({ sandbox, onSolved }: LabSandboxProps) {
   // Per-type input state
   const [text, setText] = useState('')
   const [selected, setSelected] = useState<string[]>([])
+
+  // Wide content (logs, request/JSON dumps, IP tables) can't fit a narrow
+  // portrait phone without sideways scrolling — ask the user to rotate.
+  const phonePortrait = usePhonePortrait()
+  const [forcePortrait, setForcePortrait] = useState(false)
+  const needsWide =
+    sandbox.type === 'ipSelection' ||
+    ('mono' in sandbox && Boolean((sandbox as { mono?: boolean }).mono))
+  const showRotate = needsWide && phonePortrait && !forcePortrait
 
   const succeed = () => {
     setStatus('success')
@@ -92,10 +102,14 @@ export function LabSandbox({ sandbox, onSolved }: LabSandboxProps) {
         </h4>
       </div>
 
+      {showRotate ? (
+        <RotatePrompt onContinue={() => setForcePortrait(true)} />
+      ) : (
+        <>
       {/* Mock content block (logs / request / json / encoded) */}
       {'content' in sandbox && sandbox.content && (
         <pre
-          className={`mb-4 max-h-72 overflow-auto rounded-xl border border-white/10 bg-black/40 p-4 text-xs leading-relaxed text-aqua/90 ${
+          className={`mb-4 max-h-72 overflow-auto rounded-xl border border-white/10 bg-black/40 p-4 text-[11px] leading-relaxed text-aqua/90 sm:text-xs ${
             sandbox.mono ? 'font-mono' : 'font-body whitespace-pre-wrap text-white/80'
           }`}
         >
@@ -165,7 +179,7 @@ export function LabSandbox({ sandbox, onSolved }: LabSandboxProps) {
       {sandbox.type === 'ipSelection' && (
         <div>
           <div className="overflow-x-auto rounded-xl border border-white/10">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-[11px] sm:text-xs">
               <thead className="bg-white/5 font-display uppercase tracking-wider text-white/55">
                 <tr>
                   <th className="px-3 py-2 w-8" />
@@ -268,6 +282,46 @@ export function LabSandbox({ sandbox, onSolved }: LabSandboxProps) {
           ↺ Reset &amp; try again
         </button>
       )}
+        </>
+      )}
+    </div>
+  )
+}
+
+/** Shown in place of a wide sandbox when a phone is held in portrait. */
+function RotatePrompt({ onContinue }: { onContinue: () => void }) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-4 py-8 text-center">
+      <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-aqua/30 bg-aqua/10 text-aqua">
+        <svg
+          width="34"
+          height="34"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="animate-pulse"
+        >
+          <rect x="4" y="2" width="12" height="20" rx="2" transform="rotate(-20 10 12)" />
+          <path d="M20 9a7 7 0 0 0-5-4" />
+          <path d="M20 5v4h-4" />
+        </svg>
+      </span>
+      <div>
+        <h5 className="font-display text-base font-semibold text-white">Rotate to landscape</h5>
+        <p className="mx-auto mt-1.5 max-w-xs text-sm text-white/65">
+          This lab shows wide logs and tables. Turn your phone sideways so everything
+          fits — no sideways scrolling needed.
+        </p>
+      </div>
+      <button
+        onClick={onContinue}
+        className="text-xs font-display uppercase tracking-wider text-white/45 underline-offset-4 hover:text-aqua hover:underline"
+      >
+        Continue in portrait anyway
+      </button>
     </div>
   )
 }
