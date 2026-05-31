@@ -5,6 +5,7 @@ import { TrackComparison } from '../components/TrackComparison'
 import { Labs } from '../components/Labs'
 import { Estimator } from '../components/Estimator'
 import { Testimonials } from '../components/Testimonials'
+import { HackerTerminal } from '../components/HackerTerminal'
 
 export function Home() {
   // Lab-open state lives here so the Track Comparison section can deep-link into
@@ -29,6 +30,7 @@ export function Home() {
   return (
     <>
       <Hero />
+      <HackerTerminal />
       <Roadmap />
       <TrackComparison onOpenLab={openLabFromTrack} />
       <Labs openLabId={openLabId} onOpenLab={setOpenLabId} />

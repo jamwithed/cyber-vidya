@@ -1,5 +1,6 @@
 import { Logo } from './Logo'
 import { site } from '../data/site'
+import { MatrixRain } from './MatrixRain'
 
 const stats = [
   { value: '4', label: 'Roadmap stages' },
@@ -19,6 +20,9 @@ function CheckIcon() {
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-24 pb-16 sm:pt-40 sm:pb-20">
+      {/* Animated Matrix digital-rain backdrop */}
+      <MatrixRain className="absolute inset-0 opacity-[0.17] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]" />
+
       {/* Decorative glow orbs */}
       <div className="pointer-events-none absolute -top-24 right-0 h-96 w-96 rounded-full bg-cerulean/20 blur-3xl" />
       <div className="pointer-events-none absolute top-40 -left-20 h-72 w-72 rounded-full bg-aqua/10 blur-3xl" />
