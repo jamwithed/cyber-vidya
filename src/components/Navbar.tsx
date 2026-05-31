@@ -44,7 +44,8 @@ export function Navbar({ route }: { route: Route }) {
             <a
               key={l.href}
               href={l.href}
-              className="font-display text-sm uppercase tracking-widest text-white/70 transition-colors hover:text-aqua"
+              data-text={l.label}
+              className="glitch-hover font-display text-sm uppercase tracking-widest text-white/70 transition-colors hover:text-aqua"
             >
               {l.label}
             </a>
@@ -53,7 +54,8 @@ export function Navbar({ route }: { route: Route }) {
             <a
               key={l.href}
               href={l.href}
-              className={`font-display text-sm uppercase tracking-widest transition-colors hover:text-aqua ${
+              data-text={l.label}
+              className={`glitch-hover font-display text-sm uppercase tracking-widest transition-colors hover:text-aqua ${
                 route === l.route ? 'text-aqua' : 'text-white/70'
               }`}
             >

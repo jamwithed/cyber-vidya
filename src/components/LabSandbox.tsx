@@ -1,6 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Sandbox } from '../types'
 import { usePhonePortrait } from '../hooks/useMediaQuery'
+
+/** Pull a flag{...} token out of the sandbox answers / typed input / message. */
+function extractFlag(sandbox: Sandbox, typed: string): string | null {
+  const candidates: string[] = []
+  if (sandbox.type === 'flagInput') {
+    candidates.push(...sandbox.answers, typed)
+  }
+  if ('successMessage' in sandbox) candidates.push(sandbox.successMessage)
+  for (const c of candidates) {
+    const m = (c || '').match(/flag\{[^}]*\}/i)
+    if (m) return m[0]
+  }
+  return null
+}
 
 interface LabSandboxProps {
   sandbox: Sandbox
@@ -88,6 +102,7 @@ export function LabSandbox({ sandbox, onSolved }: LabSandboxProps) {
 
   const successText =
     'successMessage' in sandbox ? sandbox.successMessage : 'Correct!'
+  const capturedFlag = status === 'success' ? extractFlag(sandbox, text) : null
 
   return (
     <div className="rounded-2xl border border-aqua/25 bg-midnight-900/60 p-5">
@@ -243,6 +258,13 @@ export function LabSandbox({ sandbox, onSolved }: LabSandboxProps) {
         </div>
       )}
 
+      {status === 'success' && capturedFlag && (
+        <div className="mt-3 flex flex-wrap items-center gap-2 rounded-xl border border-aqua/30 bg-black/50 px-4 py-2.5 font-mono text-sm">
+          <span className="text-cerulean">🔓 captured</span>
+          <TypedFlag value={capturedFlag} />
+        </div>
+      )}
+
       {status === 'fail' && (
         <div className="mt-4 rounded-xl border border-[#ff9ecf]/40 bg-[#3a0d2a]/40 px-4 py-3">
           <p className="text-sm text-[#ffb8db]">
@@ -285,6 +307,50 @@ export function LabSandbox({ sandbox, onSolved }: LabSandboxProps) {
         </>
       )}
     </div>
+  )
+}
+
+const SCRAMBLE = '!<>-_\\/[]{}=+*^?#§$%&01'
+
+/** "Decrypts" a flag with a left-to-right scramble-resolve reveal + cursor. */
+function TypedFlag({ value }: { value: string }) {
+  const [display, setDisplay] = useState('')
+  const [done, setDone] = useState(false)
+  const raf = useRef(0)
+
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) {
+      setDisplay(value)
+      setDone(true)
+      return
+    }
+    let frame = 0
+    const tick = () => {
+      const revealed = Math.floor(frame / 2) // ~2 frames per character
+      let out = ''
+      for (let i = 0; i < value.length; i++) {
+        if (i < revealed || value[i] === ' ') out += value[i]
+        else out += SCRAMBLE[(Math.random() * SCRAMBLE.length) | 0]
+      }
+      setDisplay(out)
+      frame++
+      if (revealed <= value.length) {
+        raf.current = requestAnimationFrame(tick)
+      } else {
+        setDisplay(value)
+        setDone(true)
+      }
+    }
+    raf.current = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf.current)
+  }, [value])
+
+  return (
+    <span className="font-mono font-semibold tracking-wide text-aqua">
+      {display}
+      <span className={`ml-0.5 text-aqua ${done ? 'cursor-blink' : ''}`}>▋</span>
+    </span>
   )
 }
 

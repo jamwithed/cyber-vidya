@@ -143,6 +143,58 @@
   animation: cv-glitch 4.5s infinite steps(1);
 }
 
+/* Glitch-on-hover (used on nav links). Needs data-text="<label>". */
+.glitch-hover {
+  position: relative;
+}
+.glitch-hover::before,
+.glitch-hover::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.glitch-hover:hover::before {
+  color: #4ffff2;
+  opacity: 0.85;
+  clip-path: inset(0 0 50% 0);
+  animation: cv-glitch-a 0.4s steps(2, end) 1;
+}
+.glitch-hover:hover::after {
+  color: #22a7c8;
+  opacity: 0.85;
+  clip-path: inset(50% 0 0 0);
+  animation: cv-glitch-b 0.4s steps(2, end) 1;
+}
+@keyframes cv-glitch-a {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(-3px, -1px);
+  }
+  60% {
+    transform: translate(2px, 1px);
+  }
+}
+@keyframes cv-glitch-b {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(3px, 1px);
+  }
+  60% {
+    transform: translate(-2px, -1px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cursor-blink,
   .glitch,
@@ -150,6 +202,11 @@
   .animate-pulse-glow,
   .animate-pop {
     animation: none !important;
+  }
+  .glitch-hover:hover::before,
+  .glitch-hover:hover::after {
+    animation: none !important;
+    opacity: 0 !important;
   }
 }
 
