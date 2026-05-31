@@ -27,3 +27,8 @@ pnpm-debug.log*
 *.sln
 *.sw?
 Thumbs.db
+
+# TS build artifacts
+vite.config.js
+vite.config.d.ts
+*.tsbuildinfo
