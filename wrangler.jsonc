@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cyber-vidya",
+  "compatibility_date": "2025-05-01",
+  // Serve the Vite build output as a static site (Workers Static Assets).
+  // No Worker script needed — this deploys dist/ directly.
+  "assets": {
+    "directory": "./dist",
+    // Hash routing means deep links resolve client-side; serve index.html
+    // for any unmatched path as a safety net.
+    "not_found_handling": "single-page-application"
+  }
+}
