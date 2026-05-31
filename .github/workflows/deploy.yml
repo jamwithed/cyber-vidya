@@ -1,9 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages (backup)
 
-# Build on every push to main, and allow manual runs from the Actions tab.
+# Cloudflare is the primary host and auto-deploys on every push to main.
+# GitHub Pages is kept only as a manual backup to avoid double-builds — run it
+# on demand from the Actions tab if you ever need the github.io mirror.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 # Permissions required for the Pages deployment.
