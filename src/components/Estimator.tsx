@@ -30,7 +30,7 @@ export function Estimator() {
           </h2>
           <p className="mt-3 text-white/65">
             Tell us your target and how much time you can commit each week. We'll
-            estimate how long it takes to get job-ready and the indicative India
+            estimate how long it takes to get job-ready and the indicative
             salary band you'd be aiming for.
           </p>
         </div>
@@ -119,7 +119,7 @@ export function Estimator() {
 
             <div>
               <div className="font-display text-xs uppercase tracking-wider text-white/55">
-                Indicative salary band (India)
+                Indicative salary band
               </div>
               <div className="mt-1 font-display text-4xl font-bold text-aqua">
                 ₹{result.band.minLpa}–{result.band.maxLpa} LPA

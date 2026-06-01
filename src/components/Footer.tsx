@@ -48,7 +48,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-5 text-xs text-white/45 sm:flex-row">
           <p>© {2026} {site.name}. Learn. Defend. Lead.</p>
-          <p className="italic">Salary figures are indicative for the Indian market and for educational guidance only.</p>
+          <p className="italic">Salary figures are indicative and for educational guidance only.</p>
         </div>
       </div>
     </footer>

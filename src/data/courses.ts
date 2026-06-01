@@ -125,7 +125,7 @@ export const courses: Course[] = [
     highlights: [
       'ISO 27001 & NIST CSF frameworks',
       'Risk assessment & treatment',
-      'Indian IT Act, DPDP & global regulations',
+      'Data protection & privacy laws (GDPR, DPDP) & global regulations',
       'Audit, control mapping & policy writing',
     ],
     outcomes: ['GRC Analyst', 'Compliance Consultant'],

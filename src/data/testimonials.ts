@@ -33,7 +33,7 @@ export const testimonials: Testimonial[] = [
     name: 'Fatima Sheikh',
     role: 'GRC Analyst',
     quote:
-      'Clear explanations of ISO 27001, NIST and the Indian DPDP Act, with real audit examples. The trainers actually work in the field, and it shows.',
+      'Clear explanations of ISO 27001, NIST and modern data protection laws, with real audit examples. The trainers actually work in the field, and it shows.',
     rating: 4,
     initials: 'FS',
   },

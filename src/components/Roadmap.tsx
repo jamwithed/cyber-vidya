@@ -34,7 +34,7 @@ function StageDetail({ stage }: { stage: Stage }) {
       </div>
 
       <div>
-        <h4 className="section-eyebrow">Roles &amp; indicative salary (India)</h4>
+        <h4 className="section-eyebrow">Roles &amp; indicative salary</h4>
         <div className="mt-3 space-y-2">
           {stage.roles.map((r) => (
             <div

@@ -34,7 +34,7 @@ export function Hero() {
           </div>
 
           <span className="chip mb-5 inline-flex border border-aqua/30 bg-aqua/10 text-aqua">
-            Cybersecurity &amp; AI education · India
+            Cybersecurity &amp; AI education
           </span>
 
           <h1 className="font-display text-4xl font-extrabold leading-tight sm:text-6xl">

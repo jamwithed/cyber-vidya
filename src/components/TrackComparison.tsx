@@ -31,7 +31,7 @@ export function TrackComparison({ onOpenLab }: TrackComparisonProps) {
             <div className="col-span-2">Entry</div>
             <div className="col-span-2">Math / Prog</div>
             <div className="col-span-2">Time to Job</div>
-            <div className="col-span-2 text-right">Salary (India)</div>
+            <div className="col-span-2 text-right">Salary</div>
           </div>
 
           {tracks.map((t) => {
@@ -118,8 +118,8 @@ export function TrackComparison({ onOpenLab }: TrackComparisonProps) {
         </div>
 
         <p className="mt-4 text-xs italic text-white/45">
-          Salary bands are indicative India ranges (LPA) spanning junior to senior
-          roles and vary by city, company and experience.
+          Salary bands are indicative ranges (LPA) spanning junior to senior
+          roles and vary by region, city, company and experience.
         </p>
       </div>
     </section>

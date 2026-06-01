@@ -4,7 +4,7 @@ import type { SalaryEstimateConfig } from '../types'
  * Drives the salary / learning-effort estimator.
  * Edit these numbers freely — no component hard-codes salaries.
  *
- * `salary`        — indicative India bands (LPA) per track & target level.
+ * `salary`        — indicative salary bands (LPA) per track & target level.
  * `baselineHours` — total study hours typically needed to reach each level;
  *                   the estimator divides this by the learner's weekly hours.
  */

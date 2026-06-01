@@ -1,7 +1,7 @@
 import type { Stage } from '../types'
 
 /**
- * The 4-stage cybersecurity roadmap for India.
+ * The 4-stage cybersecurity roadmap.
  * Salary figures are indicative (LPA = lakhs per annum) and vary by city/company.
  */
 export const stages: Stage[] = [
@@ -32,7 +32,7 @@ export const stages: Stage[] = [
     title: 'Core Security',
     tagline: 'Blue basics, offensive basics & regulations',
     description:
-      'Step into security proper. Learn how attacks work and how defenders detect them, get hands-on with a SIEM, run your first authorized exploits, and understand the laws and frameworks that govern the field in India and globally.',
+      'Step into security proper. Learn how attacks work and how defenders detect them, get hands-on with a SIEM, run your first authorized exploits, and understand the laws and frameworks that govern the field globally.',
     difficulty: 'Intermediate',
     duration: '6–18 months',
     topics: [

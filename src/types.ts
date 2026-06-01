@@ -20,7 +20,7 @@ export type StageId = 1 | 2 | 3 | 4
 export interface RoleSalary {
   /** Job title unlocked at this stage. */
   role: string
-  /** Indicative annual salary range in India, in lakhs per annum (LPA). */
+  /** Indicative annual salary range, in lakhs per annum (LPA). */
   minLpa: number
   maxLpa: number
 }
@@ -38,7 +38,7 @@ export interface Stage {
   topics: string[]
   /** Target certifications for this stage. */
   certs: string[]
-  /** Roles + indicative India salary ranges unlocked here. */
+  /** Roles + indicative salary ranges unlocked here. */
   roles: RoleSalary[]
 }
 
@@ -56,7 +56,7 @@ export interface Track {
   intensity: Intensity
   /** Time to become job-ready, e.g. "6–12 months". */
   timeToJob: string
-  /** Indicative India salary band (LPA) across junior→senior. */
+  /** Indicative salary band (LPA) across junior→senior. */
   salary: { minLpa: number; maxLpa: number }
   /** Mini-course outline revealed when a track row is expanded. */
   outline: string[]
@@ -180,7 +180,7 @@ export interface Testimonial {
 }
 
 export interface SalaryEstimateConfig {
-  /** Per-track salary bands by target level (India, LPA). */
+  /** Per-track salary bands by target level (LPA). */
   salary: Record<TrackId, Record<TargetLevel, SalaryBand>>
   /**
    * Baseline total study hours typically needed to reach each level, by track.

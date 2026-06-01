@@ -1,6 +1,6 @@
 import type { Track } from '../types'
 
-/** The four comparison tracks. Salary bands are indicative India ranges (LPA). */
+/** The four comparison tracks. Salary bands are indicative ranges (LPA). */
 export const tracks: Track[] = [
   {
     id: 'soc',
@@ -72,7 +72,7 @@ export const tracks: Track[] = [
     outline: [
       'Security frameworks (ISO 27001, NIST CSF)',
       'Risk assessment & treatment',
-      'Indian IT Act, DPDP & global regulations',
+      'Data protection & privacy laws (GDPR, DPDP) & global regulations',
       'Audit, evidence & control mapping',
       'Policy writing & vendor risk',
     ],
