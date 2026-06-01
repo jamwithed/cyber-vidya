@@ -18,8 +18,8 @@ export const site = {
     phone: '+91 93091 65399',
     phoneHref: '+919309165399',
     address: '67, 6th Floor, Business Bay, Mumbai Naka, Nashik, Maharashtra 422001',
-    instagram: { handle: '@cyber_vidya', url: 'https://instagram.com/cyber_vidya' },
-    linkedin: { handle: 'Cyber Vidya', url: 'https://www.linkedin.com/company/cyber-vidya' },
+    instagram: { handle: '@cyber_vidya', url: 'https://www.instagram.com/cyber_vidya' },
+    linkedin: { handle: 'Cyber Vidya', url: 'https://www.linkedin.com/company/cyber-vidya/' },
   },
 
   /** Headline selling points used on the hero + About page. */
