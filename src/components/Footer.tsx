@@ -20,6 +20,7 @@ export function Footer() {
             <li><a href="#tracks" className="hover:text-aqua">Tracks</a></li>
             <li><a href="#labs" className="hover:text-aqua">Labs &amp; CTF</a></li>
             <li><a href="#testimonials" className="hover:text-aqua">Testimonials</a></li>
+            <li><a href="#social" className="hover:text-aqua">Social</a></li>
             <li><a href="#estimator" className="hover:text-aqua">Estimator</a></li>
           </ul>
         </div>

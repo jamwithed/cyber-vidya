@@ -6,6 +6,7 @@ import { Labs } from '../components/Labs'
 import { Estimator } from '../components/Estimator'
 import { Testimonials } from '../components/Testimonials'
 import { HackerTerminal } from '../components/HackerTerminal'
+import { SocialFeed } from '../components/SocialFeed'
 
 export function Home() {
   // Lab-open state lives here so the Track Comparison section can deep-link into
@@ -35,6 +36,7 @@ export function Home() {
       <TrackComparison onOpenLab={openLabFromTrack} />
       <Labs openLabId={openLabId} onOpenLab={setOpenLabId} />
       <Testimonials />
+      <SocialFeed />
       <Estimator />
     </>
   )

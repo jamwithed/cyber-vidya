@@ -120,3 +120,25 @@ export const site = {
     learningModes: ['Classroom', 'Online', 'Hybrid'],
   },
 } as const
+
+/* ------------------------------------------------------------------ */
+/* Social feed config                                                  */
+/* ------------------------------------------------------------------ */
+
+export interface SocialConfig {
+  /**
+   * Behold.so feed ID for live Instagram posts.
+   * Create a free feed at https://behold.so, connect @cyber_vidya, and paste
+   * the feed ID here (it powers https://feeds.behold.so/<feedId>).
+   * Leave empty to show a "Follow us" card instead.
+   */
+  beholdFeedId: string
+  /** Optionally feature one LinkedIn post (update occasionally). */
+  linkedinFeatured: { text: string; url: string } | null
+}
+
+export const social: SocialConfig = {
+  beholdFeedId: '',
+  linkedinFeatured: null,
+}
+
