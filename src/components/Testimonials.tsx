@@ -21,6 +21,9 @@ function Stars({ rating }: { rating: number }) {
 }
 
 export function Testimonials() {
+  // Hide the whole section until real testimonials are added.
+  if (testimonials.length === 0) return null
+
   return (
     <section id="testimonials" className="scroll-mt-24 py-14 sm:py-20">
       <div className="mx-auto max-w-7xl px-5">
