@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { site } from '../data/site'
 import { tracks } from '../data/tracks'
+import { apiConfigured, apiFetch } from '../lib/api'
 
 function MailIcon() {
   return (
@@ -29,6 +30,8 @@ function PinIcon() {
 export function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', interest: tracks[0].name, message: '' })
   const [sent, setSent] = useState(false)
+  const [sentVia, setSentVia] = useState<'api' | 'mailto'>('mailto')
+  const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
   const update = (k: keyof typeof form, v: string) => {
@@ -36,7 +39,17 @@ export function Contact() {
     setError('')
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const openMailto = () => {
+    const subject = encodeURIComponent(`Course enquiry — ${form.interest}`)
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nInterested in: ${form.interest}\n\n${form.message}`,
+    )
+    window.location.href = `mailto:${site.contact.email}?subject=${subject}&body=${body}`
+    setSentVia('mailto')
+    setSent(true)
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setError('Please fill in your name, email and message.')
@@ -46,13 +59,33 @@ export function Contact() {
       setError('Please enter a valid email address.')
       return
     }
-    // Front-end only: open the user's mail client pre-filled, and show success.
-    const subject = encodeURIComponent(`Course enquiry — ${form.interest}`)
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nInterested in: ${form.interest}\n\n${form.message}`,
-    )
-    window.location.href = `mailto:${site.contact.email}?subject=${subject}&body=${body}`
-    setSent(true)
+
+    // When the backend is configured, store the message there. Otherwise (or if
+    // it fails) fall back to opening the user's mail client.
+    if (apiConfigured) {
+      setSubmitting(true)
+      try {
+        await apiFetch('/api/contact', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: form.name.trim(),
+            email: form.email.trim(),
+            phone: form.phone.trim() || undefined,
+            interest: form.interest,
+            message: form.message.trim(),
+          }),
+        })
+        setSentVia('api')
+        setSent(true)
+      } catch {
+        openMailto() // graceful fallback
+      } finally {
+        setSubmitting(false)
+      }
+      return
+    }
+
+    openMailto()
   }
 
   const cards = [
@@ -119,8 +152,12 @@ export function Contact() {
                 <span className="text-4xl">✅</span>
                 <h2 className="mt-4 text-2xl font-bold">Thank you, {form.name.split(' ')[0]}!</h2>
                 <p className="mt-2 max-w-md text-white/70">
-                  Your email client should have opened with your enquiry ready to send.
-                  If it didn't, email us directly at{' '}
+                  {sentVia === 'api' ? (
+                    <>We've received your message and will get back to you within one business day.</>
+                  ) : (
+                    <>Your email app should have opened with your enquiry ready to send. If it didn't, email us directly.</>
+                  )}{' '}
+                  You can also reach us at{' '}
                   <a href={`mailto:${site.contact.email}`} className="text-aqua">
                     {site.contact.email}
                   </a>
@@ -191,11 +228,12 @@ export function Contact() {
                   </p>
                 )}
 
-                <button type="submit" className="btn-primary w-full sm:w-auto">
-                  Send message
+                <button type="submit" disabled={submitting} className="btn-primary w-full sm:w-auto">
+                  {submitting ? 'Sending…' : 'Send message'}
                 </button>
                 <p className="text-xs text-white/45">
-                  Submitting opens your email app pre-filled. Prefer to call?{' '}
+                  {apiConfigured ? 'We typically reply within one business day.' : 'Submitting opens your email app pre-filled.'}{' '}
+                  Prefer to call?{' '}
                   <a href={`tel:${site.contact.phoneHref}`} className="text-aqua">
                     {site.contact.phone}
                   </a>
