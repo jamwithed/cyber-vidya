@@ -9,5 +9,12 @@
     // Hash routing means deep links resolve client-side; serve index.html
     // for any unmatched path as a safety net.
     "not_found_handling": "single-page-application"
-  }
+  },
+  // Serve the site on the production domain via Worker routes. These work
+  // alongside the existing (proxied) DNS records — the route intercepts traffic
+  // at Cloudflare's edge and serves this Worker instead of the old origin.
+  "routes": [
+    { "pattern": "cybervidya.co.in/*", "zone_name": "cybervidya.co.in" },
+    { "pattern": "www.cybervidya.co.in/*", "zone_name": "cybervidya.co.in" }
+  ]
 }
