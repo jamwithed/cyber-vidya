@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Logo } from './Logo'
 import type { Route } from '../hooks/useRoute'
+import { apiConfigured } from '../lib/api'
 
 /** Section links only work on the home page; page links route anywhere. */
 const sectionLinks = [
@@ -13,6 +14,10 @@ const pageLinks: { href: string; label: string; route: Route }[] = [
   { href: '#/courses', label: 'Courses', route: 'courses' },
   { href: '#/about', label: 'About', route: 'about' },
   { href: '#/contact', label: 'Contact', route: 'contact' },
+  // The student portal link only appears once the backend API is configured.
+  ...(apiConfigured
+    ? [{ href: '#/portal', label: 'Portal', route: 'portal' as Route }]
+    : []),
 ]
 
 export function Navbar({ route }: { route: Route }) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export type Route = 'home' | 'about' | 'contact' | 'courses'
+export type Route = 'home' | 'about' | 'contact' | 'courses' | 'portal'
 
 /**
  * Minimal, dependency-free hash router.
@@ -17,6 +17,7 @@ function parse(hash: string): Route {
   if (h === '/about') return 'about'
   if (h === '/contact') return 'contact'
   if (h === '/courses') return 'courses'
+  if (h === '/portal') return 'portal'
   return 'home'
 }
 

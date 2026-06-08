@@ -4,6 +4,7 @@ import { Home } from './pages/Home'
 import { About } from './pages/About'
 import { Contact } from './pages/Contact'
 import { Courses } from './pages/Courses'
+import { Portal } from './pages/Portal'
 import { useRoute } from './hooks/useRoute'
 
 export default function App() {
@@ -16,6 +17,8 @@ export default function App() {
       <Contact />
     ) : route === 'courses' ? (
       <Courses />
+    ) : route === 'portal' ? (
+      <Portal />
     ) : (
       <Home />
     )
