@@ -5,6 +5,7 @@ import { About } from './pages/About'
 import { Contact } from './pages/Contact'
 import { Courses } from './pages/Courses'
 import { Portal } from './pages/Portal'
+import { Learn } from './pages/Learn'
 import { useRoute } from './hooks/useRoute'
 
 export default function App() {
@@ -19,6 +20,8 @@ export default function App() {
       <Courses />
     ) : route === 'portal' ? (
       <Portal />
+    ) : route === 'learn' ? (
+      <Learn />
     ) : (
       <Home />
     )

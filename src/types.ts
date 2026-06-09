@@ -189,3 +189,209 @@ export interface SalaryEstimateConfig {
   baselineHours: Record<TrackId, Record<TargetLevel, number>>
   disclaimer: string
 }
+
+/* ------------------------------------------------------------------ */
+/* Curriculum — self-paced, pause/resume, NICE-aligned, work-integrated */
+/* ------------------------------------------------------------------ */
+/**
+ * Design references (verified during research, see docs/curriculum/README.md):
+ *  - NIST NICE Framework (SP 800-181r1): Task→Knowledge→Skill blocks bundled
+ *    into employer-driven Competencies, each with an assessment method.
+ *  - Micro-learning: theory lessons target 7–15 min (replace one 50-min unit
+ *    with 2–3 short lessons) to lift completion.
+ *  - HTB Academy: Path → Module → Section, theory ("Article") and interactive
+ *    sections interleaved, per-section progress — mirrored below.
+ *  - ISC2 2025: internships/apprenticeships have the highest recommendation
+ *    rate (69%) → every course carries an embedded WorkExperiencePhase.
+ *  - Soft skills rank highest for entry hires → reflection/write-up blocks.
+ */
+
+/** A retrieval-practice question rendered inline inside a lesson (low-stakes). */
+export interface InlineQuestion {
+  prompt: string
+  options: { id: string; label: string }[]
+  /** Ids of the correct option(s). */
+  correct: string[]
+  multiple?: boolean
+  /** Always shown after answering — feedback is a core anti-dropout lever. */
+  explanation: string
+}
+
+/** The atomic content units that make up a lesson. */
+export type LessonBlockType =
+  | 'concept' // teaching text (markdown)
+  | 'video' // micro-video, 7–15 min
+  | 'callout' // tip / warning / key idea / industry note / India note
+  | 'example' // worked example or walkthrough
+  | 'lab' // hands-on; links a Lab id from src/data/labs.ts
+  | 'check' // inline retrieval-practice question (spaced practice)
+  | 'reflection' // soft-skill prompt: write-up, report, peer exercise
+  | 'resource' // cited external reading
+
+export interface LessonBlock {
+  id: string
+  type: LessonBlockType
+  title?: string
+  /** Markdown body for text-bearing blocks (concept/example/reflection/callout). */
+  body?: string
+  /** For type 'lab' — the Lab id this block embeds. */
+  labId?: string
+  /** For type 'check' — the inline question. */
+  question?: InlineQuestion
+  /** For type 'video' / time-bearing blocks. */
+  estimatedMinutes?: number
+  /** For type 'callout'. */
+  variant?: 'tip' | 'warning' | 'key' | 'industry' | 'india'
+  /** For type 'resource' — external source URL + label. */
+  href?: string
+}
+
+/** HTB-style distinction: reading ("Article") vs hands-on vs assessed. */
+export type LessonKind = 'theory' | 'interactive' | 'assessment' | 'project'
+
+export interface Lesson {
+  id: string
+  title: string
+  kind: LessonKind
+  /** Micro-learning target: 7–15 for theory; longer for labs/projects. */
+  estimatedMinutes: number
+  summary: string
+  /** Learner-facing "by the end you can…" objectives. */
+  objectives: string[]
+  /**
+   * Authored content. May be empty for courses defined at structural depth
+   * (metadata only) — the flagship course is fleshed to full block depth.
+   */
+  blocks: LessonBlock[]
+  /** Labs referenced by this lesson (mirrors any 'lab' blocks for quick filtering). */
+  labIds?: string[]
+}
+
+/** NICE alignment metadata attached to a module. */
+export interface NiceAlignment {
+  /** NICE Competency names this module builds toward. */
+  competencies?: string[]
+  /** NICE Work Roles this module supports. */
+  workRoles?: string[]
+}
+
+export interface ModuleAssessment {
+  id: string
+  title: string
+  type: 'quiz' | 'lab-challenge' | 'project' | 'peer-review'
+  description: string
+  /** Mastery gate, 0–1 (e.g. 0.8 = 80%). Undefined = not gated. */
+  passThreshold?: number
+  estimatedMinutes: number
+}
+
+export interface Module {
+  id: string
+  title: string
+  tagline: string
+  /** Ties the module to the 4-stage roadmap (src/data/stages.ts). */
+  stage: StageId
+  estimatedHours: number
+  summary: string
+  objectives: string[]
+  nice?: NiceAlignment
+  /** Module ids or named prerequisites that should be done first. */
+  prerequisites: string[]
+  lessons: Lesson[]
+  assessment: ModuleAssessment
+  /** If true, the assessment must be passed to unlock the next module. */
+  masteryRequired: boolean
+}
+
+/** Open-Badges-style micro-credential earned within a course. */
+export interface Badge {
+  id: string
+  title: string
+  description: string
+  /** What earns the badge (the assertion criteria). */
+  criteria: string
+  icon: string
+}
+
+/**
+ * The embedded work-experience phase — Cyber Vidya's differentiator.
+ * Modeled on apprenticeship / practicum designs that produce day-one-ready hires.
+ */
+export interface WorkExperiencePhase {
+  id: string
+  title: string
+  /** e.g. 'Simulated SOC shift', 'Live-fire range', 'Client micro-project'. */
+  format: string
+  durationWeeks: number
+  summary: string
+  /** What the learner actually does. */
+  activities: string[]
+  /** Tangible artifacts that prove work-readiness (portfolio pieces). */
+  deliverables: string[]
+  /** Supervision / mentorship model. */
+  mentorship: string
+  /** Competencies assessed during the phase (NICE competency names). */
+  competencies: string[]
+  /** Soft skills deliberately developed (communication, teamwork, …). */
+  softSkills: string[]
+}
+
+export interface CourseCurriculum {
+  /** Matches a Course.id in src/data/courses.ts. */
+  courseId: string
+  title: string
+  format: string
+  totalEstimatedHours: number
+  /** Recommended pace, e.g. "6–8 hrs/week". */
+  weeklyCommitment: string
+  /** The single primary role this path targets. */
+  outcomeRole: string
+  /** The single capstone certification this path anchors to. */
+  capstoneCert: string
+  /** NICE Work Roles the whole course maps to. */
+  niceWorkRoles: string[]
+  modules: Module[]
+  /** Embedded apprenticeship / practicum (present on every course). */
+  workExperience: WorkExperiencePhase
+  badges: Badge[]
+  /** Final capstone project, completed after all modules + work experience. */
+  capstone: ModuleAssessment
+}
+
+/* ------------------------------------------------------------------ */
+/* Progress — pause/resume persistence (front-end shape; mirrors backend) */
+/* ------------------------------------------------------------------ */
+
+export type ProgressStatus = 'not-started' | 'in-progress' | 'completed'
+
+export interface LessonProgress {
+  lessonId: string
+  status: ProgressStatus
+  /** Resume point: the last block the learner saw. */
+  lastBlockId?: string
+  secondsSpent?: number
+  completedAt?: string
+}
+
+export interface ModuleProgress {
+  moduleId: string
+  status: ProgressStatus
+  /** Latest assessment score, 0–1. */
+  assessmentScore?: number
+  masteryMet: boolean
+}
+
+/** A student's run through one course. The unit the portal loads on sign-in. */
+export interface Enrollment {
+  studentId: string
+  courseId: string
+  startedAt: string
+  lastActiveAt: string
+  /** Where "Resume" drops the learner back in. */
+  currentModuleId?: string
+  currentLessonId?: string
+  lessons: Record<string, LessonProgress>
+  modules: Record<string, ModuleProgress>
+  earnedBadgeIds: string[]
+  workExperienceStatus: ProgressStatus
+}

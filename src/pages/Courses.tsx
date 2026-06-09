@@ -78,8 +78,11 @@ function CourseCard({ course }: { course: Course }) {
         </div>
       </div>
 
-      <div className="mt-6 flex items-center gap-3 pt-2">
-        <a href="#/contact" className="btn-primary !px-5 !py-2 text-xs">Enroll Now</a>
+      <div className="mt-6 flex flex-wrap items-center gap-3 pt-2">
+        <a href={`#/learn/${course.id}`} className="btn-primary !px-5 !py-2 text-xs">
+          Start learning
+        </a>
+        <a href="#/contact" className="btn-ghost !px-5 !py-2 text-xs">Enroll Now</a>
         {course.trackId && (
           <a href="#tracks" className="font-display text-xs uppercase tracking-wider text-aqua hover:underline">
             View track →

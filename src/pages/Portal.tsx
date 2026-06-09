@@ -247,7 +247,8 @@ function Dashboard({ student, onLogout }: { student: StudentMe; onLogout: () => 
           </div>
 
           <div className="mt-7 flex flex-wrap gap-3 border-t border-white/10 pt-6">
-            <a href="#/" className="btn-primary">Open the roadmap</a>
+            <a href={`#/learn/${course.id}`} className="btn-primary">Start / resume course</a>
+            <a href="#/" className="btn-ghost">Open the roadmap</a>
             <a href="#labs" className="btn-ghost">Practice in the labs</a>
           </div>
         </div>
